@@ -1,0 +1,230 @@
+﻿@model MVCManukauTech.Models.DB.Products
+
+@{
+    ViewData["Title"] = "Edit";
+}
+<script src="~/js/sweetalert.min.js"></script>
+<script type="text/javascript">
+    function validateForm() {
+        var a = document.forms["Edit"]["Name"].value;
+        var b = document.forms["Edit"]["ImageFileName"].value;
+        var c = document.forms["Edit"]["UnitCost"].value;
+        var d = document.forms["Edit"]["Description"].value;
+        var e = document.forms["Edit"]["pccImage"].value;
+        var f = document.forms["Edit"]["IdImage"].value;
+        var g = document.forms["Edit"]["FirstAidImage"].value;
+        var h = document.forms["Edit"]["password"].value;
+
+        if (h == "") {
+            swal({
+                title: 'Alert!',
+                text: 'Password field cannot be left empty!!',
+                type: 'success'
+            });
+            return false;
+        }
+        else if (g == "") {
+            swal({
+                title: 'Alert!',
+                text: 'FirstAidImage field cannot be left empty!!',
+                type: 'success'
+            });
+            return false;
+        }
+        else if (f == "") {
+            swal({
+                title: 'Alert!',
+                text: 'IdImage field cannot be left empty!!',
+                type: 'success'
+            });
+            return false;
+        }
+        else if (e == "") {
+            swal({
+                title: 'Alert!',
+                text: 'pccImage field cannot be left empty!!',
+                type: 'success'
+            });
+            return false;
+        }
+        else if (d == "") {
+            swal({
+                title: 'Alert!',
+                text: 'Description field cannot be left empty!!',
+                type: 'success'
+            });
+            return false;
+        }
+        else if (c == "") {
+            swal({
+                title: 'Alert!',
+                text: 'UnitCost field cannot be left empty!!',
+                type: 'success'
+            });
+            return false;
+        }
+        else if (b == "") {
+            swal({
+                title: 'Alert!',
+                text: 'ImageFileName field cannot be left empty!!',
+                type: 'success'
+            });
+            return false;
+        }
+        else if (a == "") {
+            swal({
+                title: 'Alert!',
+                text: 'Name field cannot be left empty!!',
+                type: 'success'
+            });
+            return false;
+        }
+    }
+
+    var loadFile = function (event) {
+        var output = document.getElementById('yid');
+        output.src = URL.createObjectURL(event.target.files[0]);
+    };
+    var loadFile1 = function (event) {
+        var output1 = document.getElementById('pccid');
+        output1.src = URL.createObjectURL(event.target.files[0]);
+    }
+    var loadFile2 = function (event) {
+        var output2 = document.getElementById('idid');
+        output2.src = URL.createObjectURL(event.target.files[0]);
+    }
+    var loadFile3 = function (event) {
+        var output3 = document.getElementById('fid');
+        output3.src = URL.createObjectURL(event.target.files[0]);
+    }
+
+</script>
+<section class="page-section portfolio" id="portfolio">
+    <div class="container">
+        <!-- Portfolio Section Heading -->
+        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">@ViewData["Title"]</h2>
+        <div class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon">
+                <img style="height:60px;border-radius:50%;" src="~/images/nzlogo.png" />
+            </div>
+            <div class="divider-custom-line"></div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-5 mb-lg-0">
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                            You have @ViewData["countbook"].ToString() Current Bookings
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            @foreach(var std in ViewData["bookdropdown"] as List<MVCManukauTech.ViewModels.QueryfortempanduserViewModel>)
+                            {
+                                <li>You have booking by email-Id <b>@std.Email</b> .The date and time are from <b>@std.Datebook</b> to <b>@std.DateEnd</b>. please contact <b>@std.PhoneNumber</b>  </li>
+                                <br />
+                            }
+                            @*<li><a href="#">@ViewData["bookdropdown"].ToString()</a></li>*@
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-5 mb-lg-0">
+                    <form asp-action="Edit" name="Edit" onsubmit="return validateForm()" method="post" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="ProductId" />
+                        <div class="form-group">
+                            <label asp-for="CategoryId" class="control-label" style="font-weight: bold">SELECT LOCATION</label>
+                            <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+                            <span asp-validation-for="CategoryId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Name" class="control-label" style="font-weight: bold">NAME</label>
+                            <input asp-for="Name" name="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="UnitCost" class="control-label" style="font-weight: bold">AGE</label>
+                            <input asp-for="UnitCost" name="UnitCost" class="form-control" />
+                            <span asp-validation-for="UnitCost" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Description" class="control-label" style="font-weight: bold">ABOUT YOURSELF</label>
+                            <input asp-for="Description" name="Description" class="form-control" />
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Prize" class="control-label" style="font-weight: bold">PAY-RATE/HOUR</label>
+                            <input asp-for="Prize" name="Prize" class="form-control" />
+                            <span asp-validation-for="Prize" class="text-danger"></span>
+                        </div>
+                        <div style="border-style:inset;text-align:left;" class="form-group">
+                            <img id="yid" style="height:320px" class="img-fluid" alt="No image uploaded!" src="~/images/Products/@Model.ImageFileName" />
+                            <label asp-for="ImageFileName" class="control-label" style="font-weight: bold">YOUR IMAGE</label>
+                            <input asp-for="ImageFileName" name="ImageFileName" type="file" onchange="loadFile(event)" />
+                            <span asp-validation-for="ImageFileName" class="text-danger"></span>
+                        </div>
+
+                        <div style="border-style:inset;text-align:left;" class="form-group">
+                            <img id="pccid" style="height:320px" class="img-fluid" alt="No image uploaded!" src="~/images/Products/@Model.pccImage" />
+                            <label asp-for="pccImage" class="control-label" style="font-weight: bold">UPLOAD PCC</label>
+                            <input asp-for="pccImage" type="file" name="pccImage" onchange="loadFile1(event)" />
+                            <span asp-validation-for="pccImage" class="text-danger"></span>
+                        </div>
+
+                        <div style="border-style:inset;text-align:left;" class="form-group">
+                            <img id="idid" style="height:320px" class="img-fluid" alt="No image uploaded!" src="~/images/Products/@Model.IdImage" />
+                            <label asp-for="IdImage" class="control-label" style="font-weight: bold">UPLOAD ID(Passport/Driving Licence)</label>
+                            <input asp-for="IdImage" type="file" name="IdImage" onchange="loadFile2(event)" />
+                            <span asp-validation-for="IdImage" class="text-danger"></span>
+                        </div>
+
+                        <div style="border-style:inset;text-align:left;" class="form-group">
+                            <img id="fid" style="height:320px" class="img-fluid" alt="No image uploaded!" src="~/images/Products/@Model.FirstAidImage" />
+                            <label asp-for="FirstAidImage" class="control-label" style="font-weight: bold">UPLOAD FIRST-AID CERTIFICATE</label>
+                            <input asp-for="FirstAidImage" type="file" name="FirstAidImage" onchange="loadFile3(event)" />
+                            <span asp-validation-for="FirstAidImage" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Save" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="page-section bg-primary text-white mb-0" id="about">
+    <div class="container">
+        <!-- About Section Heading -->
+        <h2 class="page-section-heading text-center text-uppercase text-white">About</h2>
+        <!-- Icon Divider -->
+        <div class="divider-custom divider-light">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon">
+                <img style="height:60px;border-radius:50%;" src="~/images/nurse.png" />
+            </div>
+            <div class="divider-custom-line"></div>
+        </div>
+        <!-- About Section Content -->
+        <div class="row">
+            <div class="col-lg-4 ml-auto">
+                <p class="lead">Need a babysitter or babysitter job? Nanny4urtiny is the one-stop resource for all your babysitting, nanny, and child care needs. We are an online community dedicated to connecting families to a wide network of babysitters, nannies, daycares and childcare individuals. </p>
+            </div>
+            <div class="col-lg-4 mr-auto">
+                <p class="lead">If you're looking to hire a child care for your kids or you're a babysitter, nanny or child care worker looking for a job — Nanny4urtiny can help!</p>
+            </div>
+        </div>
+        <!-- About Section Button -->
+        <div class="text-center mt-4">
+            <a class="btn btn-xl btn-outline-light" href="https://play.google.com/store/apps?hl=en">
+                <i class="fa fa-download mr-2"></i>
+                Download App!
+            </a>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

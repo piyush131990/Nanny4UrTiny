@@ -1,0 +1,170 @@
+﻿@model MVCManukauTech.Models.DB.TempCart
+@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    var temp = (IEnumerable<MVCManukauTech.Models.DB.TempCart>)ViewData["bookinglist"];
+    var temp1 = (IEnumerable<MVCManukauTech.Models.DB.TempCart>)ViewData["bookinglist1"];
+    string need = HttpContextAccessor.HttpContext.Session.GetString("checkalert").ToString();
+}
+<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+<script>
+    var totalfinal = @ViewData["prizing"].ToString();
+    var totalamount = totalfinal.toFixed(2);
+    paypal.Button.render({
+        // Configure environment
+        env: 'sandbox',
+        client: {
+            sandbox: 'ASOi8WOz2EvwerU0oX0LX_k44B1PwXT5XhvNdELJhh5G-Rjoh7E1Td_fVxUU3iTm8PXwtUTBev5wzMK6',
+            //production: 'demo_production_client_id'
+        },
+        // Customize button (optional)
+        locale: 'en_US',
+        style: {
+            size: 'small',
+            color: 'gold',
+            shape: 'pill',
+        },
+
+        // Set up a payment
+        payment: function (data, actions) {
+
+            return actions.payment.create({
+                transactions: [{
+                    amount: {
+                        total: totalamount,
+                        currency: 'NZD'
+                    }
+                }]
+            });
+        },
+        // Execute the payment
+        onAuthorize: function (data, actions) {
+            return actions.payment.execute()
+                .then(function () {
+                    // Show a confirmation message to the buyer
+                    window.alert('Thank you for your purchase!');
+                    return actions.redirect(window, 'Chkupdate');
+                });
+
+        },
+        //action on cancelling the payment
+        onCancel: function (data, actions) {
+            window.alert('The payment has been cancelled!');
+            return actions.redirect(window, 'returntohome');
+        }
+    }, '#paypal-button');
+</script>
+<script src="~/js/sweetalert.min.js"></script>
+<script type="text/javascript">
+    
+    if ('@need' == 'done') {
+        swal({
+            title: 'Alert!',
+            text: 'Dates have been selected successfully, please do the payments!!',
+            type: 'success',
+
+        });
+    }
+    else if ('@need' == 'notdone') {
+        swal({
+            title: 'Alert!',
+            text: 'These dates are not available!!',
+            type: 'success',
+        });
+    }
+
+</script>
+<section class="page-section portfolio" id="portfolio">
+    <div class="container">
+        <!-- Portfolio Section Heading -->
+        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">New Zealand</h2>
+        <!-- Icon Divider -->
+        <div class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon">
+                <img style="height:60px;border-radius:50%;" src="~/images/nzlogo.png" />
+            </div>
+            <div class="divider-custom-line"></div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-5 mb-lg-0" style="text-align:left">
+                    <label> BOOKING DONE</label>
+                    @foreach (var book in temp)
+                    {
+                        <div class="text-left mt-4">
+                            <p>FROM :&nbsp; @book.Datebook</p>
+                            <p>TO : &nbsp;@book.DateEnd</p>
+                        </div>
+                        <br />
+                    }
+                </div>
+                <div class="col-lg-4 mb-5 mb-lg-0">
+                    <label> BOOKING PENDING</label>
+                    @foreach (var book1 in temp1)
+                    {
+                        <div class="text-left mt-4">
+                            <p>FROM :&nbsp; @book1.Datebook</p>
+                            <p>TO : &nbsp;@book1.DateEnd</p>
+                        </div>
+                        <br />
+                    }
+                    <div id="paypal-button"></div>
+                </div>
+                <div class="col-lg-4 mb-5 mb-lg-0">
+                    <form asp-action="Booking" method="post">
+                        <div class="form-group">
+
+                            <label asp-for="ProductId" class="control-label" style="font-weight: bold">CHOOSE DATE AND TIME</label>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Datebook">START TIME</label>
+                            <input asp-for="Datebook" type="datetime-local" value="@ViewBag.stdtbag" id="datetime" />
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="DateEnd">END TIME</label>
+                            <input asp-for="DateEnd" type="datetime-local" value="@ViewBag.enddt" id="datetime1" />
+
+
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Check for Dates" class="btn btn-primary" />
+                            
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<section class="page-section bg-primary text-white mb-0" id="about">
+    <div class="container">
+        <!-- About Section Heading -->
+        <h2 class="page-section-heading text-center text-uppercase text-white">About</h2>
+        <!-- Icon Divider -->
+        <div class="divider-custom divider-light">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon">
+                <img style="height:60px;border-radius:50%;" src="~/images/nurse.png" />
+            </div>
+            <div class="divider-custom-line"></div>
+        </div>
+        <!-- About Section Content -->
+        <div class="row">
+            <div class="col-lg-4 ml-auto">
+                <p class="lead">Need a babysitter or babysitter job? Nanny4urtiny is the one-stop resource for all your babysitting, nanny, and child care needs. We are an online community dedicated to connecting families to a wide network of babysitters, nannies, daycares and childcare individuals. </p>
+            </div>
+            <div class="col-lg-4 mr-auto">
+                <p class="lead">If you're looking to hire a child care for your kids or you're a babysitter, nanny or child care worker looking for a job — Nanny4urtiny can help!</p>
+            </div>
+        </div>
+        <!-- About Section Button -->
+        <div class="text-center mt-4">
+            <a class="btn btn-xl btn-outline-light" href="https://play.google.com/store/apps?hl=en">
+                <i class="fa fa-download mr-2"></i>
+                Download App!
+            </a>
+        </div>
+    </div>
+</section>

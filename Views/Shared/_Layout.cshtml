@@ -1,0 +1,245 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    <title>@ViewData["Title"] Nanny for your Tiny</title>
+    <!-- Custom fonts for this theme -->
+    <style>
+        .dropbtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+            .dropbtn:hover, .dropbtn:focus {
+                background-color: #3e8e41;
+            }
+
+        #myInput {
+            box-sizing: border-box;
+            background-image: url('searchicon.png');
+            background-position: 14px 12px;
+            background-repeat: no-repeat;
+            font-size: 16px;
+            padding: 14px 20px 12px 45px;
+            border: none;
+            border-bottom: 1px solid #ddd;
+        }
+
+            #myInput:focus {
+                outline: 3px solid #ddd;
+            }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f6f6f6;
+            min-width: 230px;
+            overflow: auto;
+            border: 1px solid #ddd;
+            z-index: 1;
+        }
+
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+        .dropdown a:hover {
+            background-color: #ddd;
+        }
+
+        .show {
+            display: block;
+        }
+    </style>
+    <link href="~/css/all.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <!-- Theme CSS -->
+    <link href="~/css/freelancer.css" rel="stylesheet" />
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment>
+</head>
+<body id="page-top">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" asp-area="" asp-controller="Home" asp-action="Index">Nanny 4 Ur Tiny</a>
+            <div class="dropdown">
+                <button onclick="myFunction()" id="srchbtn" class="btn btn-primary">Search Location</button>
+                <div id="myDropdown" class="dropdown-content">
+                    <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+                    <a href="~/Products/EachProductDetails?id=15&pageno=1">Auckland</a>
+                    <a href="~/Products/EachProductDetails?id=17&pageno=1">Bay of Plenty</a>
+                    <a href="~/Products/EachProductDetails?id=27&pageno=1">Canterburry</a>
+                    <a href="~/Products/EachProductDetails?id=18&pageno=1">Gisborne</a>
+                    <a href="~/Products/EachProductDetails?id=19&pageno=1">Hawke's Bay</a>
+                    <a href="~/Products/EachProductDetails?id=25&pageno=1">Marlborough</a>
+                    <a href="~/Products/EachProductDetails?id=24&pageno=1">Nelson</a>
+                    <a href="~/Products/EachProductDetails?id=14&pageno=1">Northland</a>
+                    <a href="~/Products/EachProductDetails?id=28&pageno=1">Otago</a>
+                    <a href="~/Products/EachProductDetails?id=29&pageno=1">Southland</a>
+                    <a href="~/Products/EachProductDetails?id=20&pageno=1">Taranaki</a>
+                    <a href="~/Products/EachProductDetails?id=23&pageno=1">Tasman</a>
+                    <a href="~/Products/EachProductDetails?id=16&pageno=1">Waikato</a>
+                    <a href="~/Products/EachProductDetails?id=22&pageno=1">Wellington</a>
+                    <a href="~/Products/EachProductDetails?id=26&pageno=1">West Coast</a>
+                </div>
+            </div>
+            
+            <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+
+                    @*<li class="nav-item mx-0 mx-lg-1">
+                    <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                </li>*@
+                    @*<li class="nav-item mx-0 mx-lg-1">
+                    <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" asp-area="" asp-controller="Home" asp-action="About">About</a>
+                </li>*@
+                    @*<li class="nav-item mx-0 mx-lg-1">
+                    <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
+                </li>*@
+                </ul>
+                @await Html.PartialAsync("_LoginPartial")
+            </div>
+        </div>
+    </nav>
+
+    <!-- Masthead -->
+    <header class="masthead bg-primary text-white text-center">
+        <div class="container d-flex align-items-center flex-column">
+            <!-- Masthead Avatar Image -->
+            <img class="masthead-avatar mb-5" src="~/startbootstrap-freelancer-gh-pages/img/avataaars.svg" alt="">
+            <!-- Masthead Heading -->
+            <h1 class="masthead-heading text-uppercase mb-0">Nanny 4 Ur Tiny</h1>
+            <!-- Icon Divider -->
+            <div class="divider-custom divider-light">
+                <div class="divider-custom-line"></div>
+                <div class="divider-custom-icon">
+                    <img style="height:60px;border-radius:50%;" src="~/images/nurse.png" />
+                </div>
+                <div class="divider-custom-line"></div>
+            </div>
+            <!-- Masthead Subheading -->
+            <p class="masthead-subheading font-weight-light mb-0">Nannies create an impact that is unforgettable!</p>
+        </div>
+    </header>
+
+
+    @RenderBody()
+
+    <!-- Footer -->
+    <footer class="footer text-center">
+        <div class="container">
+            <div class="row">
+                <!-- Footer Location -->
+                <div class="col-lg-4 mb-5 mb-lg-0">
+                    <h4 class="text-uppercase mb-4">Auckland</h4>
+                    <p class="lead mb-0">
+                        Manukau Institute Of Technology
+                        <br>Piyush, MO +6425252525
+                    </p>
+                </div>
+                <!-- Footer Social Icons -->
+                <div class="col-lg-4 mb-5 mb-lg-0">
+                    <h4 class="text-uppercase mb-4">Follow Us !</h4>
+                    <a class="btn btn-outline-light btn-social mx-1" href="#">
+                    <img style="height:50px;width: 50px;border-radius:50%;" src="~/images/facebook.png" />
+                    </a>
+                    <a class="btn btn-outline-light btn-social mx-1" href="#">
+                        <img style="height:51px;width: 51px;border-radius:50%;" src="~/images/instagram.jpg" />
+                    </a>
+                    <a class="btn btn-outline-light btn-social mx-1" href="#">
+                        <img style="height:50px;width: 50px;border-radius:50%;" src="~/images/linkedin.png" />
+                    </a>
+                    <a class="btn btn-outline-light btn-social mx-1" href="#">
+                        <img style="height:50px;width: 50px;border-radius:50%;" src="~/images/twitter.png" />
+                    </a>
+                </div>
+                <!-- Footer About Text -->
+                <div class="col-lg-4">
+                    <h4 class="text-uppercase mb-4"></h4>
+                    <p class="lead mb-0">
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" target="_blank" href="@Url.Action("About","Home")">Terms and Conditions</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Copyright Section -->
+    <section class="copyright py-4 text-center text-white">
+        <div class="container">
+            <small>Copyright &copy; @DateTime.Now.Year  - Nanny for your Tiny</small>
+        </div>
+    </section>
+
+
+    <!-- Bootstrap core JavaScript -->
+    <script>
+        /* When the user clicks on the button,
+        toggle between hiding and showing the dropdown content */
+        function myFunction() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+
+        function filterFunction() {
+            var input, filter, ul, li, a, i;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            div = document.getElementById("myDropdown");
+            a = div.getElementsByTagName("a");
+            for (i = 0; i < a.length; i++) {
+                txtValue = a[i].textContent || a[i].innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    a[i].style.display = "";
+                } else {
+                    a[i].style.display = "none";
+                }
+            }
+        }
+        window.onclick = function (event) {
+            if (!event.target.matches('#srchbtn')) {
+
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="~/js/jquery.js"></script>
+    <script src="~/js/bootstrap.bundle.js"></script>
+    <!-- Plugin JavaScript -->
+    <script src="~/js/jquery.easing.js"></script>
+    <!-- Contact Form JavaScript -->
+    <script src="~/js/jqBootstrapValidation.js"></script>
+    <!-- Custom scripts for this template -->
+    <script src="~/js/freelancer.js"></script>
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+@using Microsoft.AspNetCore.Identity
+@using MVCManukauTech.Models
+@using Microsoft.AspNetCore.Http;
+@using Microsoft.AspNetCore.Session
+@inject IHttpContextAccessor HttpContextAccessor
+@using System.Security.Claims;
+@{
+    string id = HttpContextAccessor.HttpContext.Session.GetString("Nursemail") as string;
+}
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm">
+        <ul class="navbar-nav ml-auto navbar-right">
+            <li class="nav-item mx-0 mx-lg-1">
+                <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+            </li>
+            <li class="nav-item mx-0 mx-lg-1">
+                <button type="submit" class="btn btn-primary">Log out</button>
+            </li>
+        </ul>
+    </form>
+}
+else
+{
+
+
+    @if (string.IsNullOrEmpty(id))
+    {
+    <ul class="navbar-nav ml-auto navbar-right">
+        <li class="nav-item mx-0 mx-lg-1">
+            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+        </li>
+        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" asp-area="" asp-controller="Products" asp-action="Create">Helper Register</a></li>
+        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
+        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" asp-area="" asp-controller="Account" asp-action="Login">Log in</a></li>
+    </ul>
+            }
+            else
+            {
+    <form asp-area="" asp-controller="Account" asp-action="NurseLogout" method="post">
+        <ul class="navbar-nav ml-auto navbar-right">
+            <li class="nav-item mx-0 mx-lg-1">
+               
+            </li>
+            <li class="nav-item mx-0 mx-lg-1">
+                <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+            </li>
+            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="Products/Edit?id=@HttpContextAccessor.HttpContext.Session.GetString("Nursemail")">@HttpContextAccessor.HttpContext.Session.GetString("Nursmail").ToString()</a></li>
+            <li class="nav-item mx-0 mx-lg-1"><button type="submit" class="btn btn-primary">Log out</button></li>
+        </ul>    
+</form>
+            }
+
+
+        
+    }
+

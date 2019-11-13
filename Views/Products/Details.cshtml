@@ -1,0 +1,134 @@
+﻿@model MVCManukauTech.Models.DB.Products
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<section class="page-section portfolio" id="portfolio">
+    <div class="container">
+        <!-- Portfolio Section Heading -->
+        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">New Zealand</h2>
+        <!-- Icon Divider -->
+        <div class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon">
+                <img style="height:60px;border-radius:50%;" src="~/images/nzlogo.png" />
+            </div>
+            <div class="divider-custom-line"></div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 mb-5 mb-lg-0"></div>
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <dl class="dl-horizontal col-md-12">
+                        <dd>
+                            <img class="img-fluid" src="~/images/products/@Model.ImageFileName" />
+                        </dd>
+                        <dt>
+                            NAME
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Name)
+                        </dd>
+                        <dt>
+                            EMAIL ID
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.ProductId)
+                        </dd>
+                        <dt>
+                            AGE
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.UnitCost)
+                        </dd>
+                        <dt>
+                            ABOUT HELPER
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Description)
+                        </dd>
+                        <dt>
+                            PAY-RATE/HOUR
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model=>model.Prize)
+                        </dd>
+                        <dt>
+                            PROVINCE
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Category.CategoryName)
+                        </dd>
+
+                        <dt>
+                            IDENTIFICATION DOC
+                        </dt>
+                        <dd>
+                            @if(Model.IdImage!="")
+                            {
+                                <P>HAS BEEN VERIFIED</P>
+                            }
+                            
+                        </dd>
+                        <dt>
+                            FIRST AID CERTIFICATE
+                        </dt>
+                        <dd>
+                            @if (Model.FirstAidImage != "")
+                            {
+                                <P>HAS BEEN VERIFIED</P>
+                            }
+                        </dd>
+                        <dt>
+                            POLICE CLEARANCE CERTIFICATE
+                        </dt>
+                        <dd>
+                            @if (Model.pccImage != "")
+                            {
+                                <P>HAS BEEN VERIFIED</P>
+                            }
+                        </dd>
+                    </dl>
+
+                </div>
+                <div class="col-lg-3 mb-5 mb-lg-0"></div>
+                <a href="@Url.Action("Booking","Products",new { ids=Model.ProductId})" style="margin-left:auto;margin-right:auto" target="_blank"  class="btn btn-primary">BOOK NOW</a>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="page-section bg-primary text-white mb-0" id="about">
+    <div class="container">
+        <!-- About Section Heading -->
+        <h2 class="page-section-heading text-center text-uppercase text-white">About</h2>
+        <!-- Icon Divider -->
+        <div class="divider-custom divider-light">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon">
+                <img style="height:60px;border-radius:50%;" src="~/images/nurse.png" />
+            </div>
+            <div class="divider-custom-line"></div>
+        </div>
+        <!-- About Section Content -->
+        <div class="row">
+            <div class="col-lg-4 ml-auto">
+                <p class="lead">Need a babysitter or babysitter job? Nanny4urtiny is the one-stop resource for all your babysitting, nanny, and child care needs. We are an online community dedicated to connecting families to a wide network of babysitters, nannies, daycares and childcare individuals. </p>
+            </div>
+            <div class="col-lg-4 mr-auto">
+                <p class="lead">If you're looking to hire a child care for your kids or you're a babysitter, nanny or child care worker looking for a job — Nanny4urtiny can help!</p>
+            </div>
+        </div>
+        <!-- About Section Button -->
+        <div class="text-center mt-4">
+            <a class="btn btn-xl btn-outline-light" href="https://play.google.com/store/apps?hl=en">
+                <i class="fa fa-download mr-2"></i>
+                Download App!
+            </a>
+        </div>
+    </div>
+</section>
+@*<div>
+        <a asp-action="Edit" asp-route-id="@Model.ProductId">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>*@

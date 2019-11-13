@@ -1,0 +1,135 @@
+﻿@model IEnumerable<MVCManukauTech.Models.DB.Products>
+@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor
+@using System.Security.Claims;
+@{
+    int pno = HttpContextAccessor.HttpContext.Session.GetInt32("PCount").Value;
+    int cid = HttpContextAccessor.HttpContext.Session.GetInt32("CtId").Value;
+    double GoldPrice = 0;
+    double SilverPrice = 0;
+}
+<script src="~/js/sweetalert.min.js"></script>
+@if (User.Identity.IsAuthenticated)
+{
+    <script>
+        function checkloggedin() {
+            {
+
+                return true;
+            }
+        }
+    </script>
+}
+else
+{
+    <script>
+        function checkloggedin() {
+            {
+                swal({
+                    title: 'Alert!',
+                    text: 'Please log in to continue!!',
+                    type: 'success'
+                });
+                return false;
+            }
+        }
+    </script>
+}
+<section class="page-section portfolio" id="portfolio">
+    <div class="container">
+        <!-- Portfolio Section Heading -->
+        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">New Zealand</h2>
+        <!-- Icon Divider -->
+        <div class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon">
+                <img style="height:60px;border-radius:50%;" src="~/images/nzlogo.png" />
+            </div>
+            <div class="divider-custom-line"></div>
+        </div>
+        <!-- Portfolio Grid Items -->
+        <div class="row">
+            @foreach (var m in Model)
+            {
+                <input type="hidden" value="" />
+                <div id="tblData" class="col-md-4" style="text-align:center;padding: 20px 20px 20px 20px;">
+                    <a asp-action="Details" onclick="return checkloggedin()" asp-route-id="@m.ProductId">
+                        @*<a href="Home/EachProductDetails?id=@m.CategoryId">*@
+                        <img class="a.photo" src="~/images/products/@m.ImageFileName" style="width:250px; height:250px; cursor:pointer" />
+                        <div style="text-align:center">
+                            <h4><span id="ProductName" style="color:dodgerblue;font-family: cursive;font-size: larger;">@m.Name</span></h4>
+                            @*<h4><span id="ProductCost" style="color:black;">NZ$</span></h4>*@
+
+
+                            @*<h4><span id="ProductCost" style="color:black;font-size: larger">NZ$ @m.UnitCost</span></h4>*@
+
+
+                            <p></p>
+
+                        </div>
+                    </a>
+                    <p>
+                        @*<a href="~/OrderDetails/ShoppingCart?productId=@m.ProductId&name=@m.Name">
+                                <span class="glyphicon glyphicon-shopping-cart" style="color:green;text-align:right;font-size:25px;"></span><span style="font-family:cursive;color:green;">Add to Cart</span>
+                            </a>*@
+
+                    </p>
+
+                </div>
+                <br />
+
+            }
+
+
+            @if (pno > 6)
+            {
+                <div style="margin-left: auto; margin-right: auto;">
+                    <nav aria-label="..." style="text-align: center;">
+                        <ul class="pagination pagination-lg">
+                            <li class="page-item"><a class="page-link" href="~/Products/EachProductDetails?id=@cid&pageno=1">1</a></li>
+                            @for (int j = 1; j <= (pno / 6); j++)
+                            {
+                                int k = j + 1;
+                                <li class="page-item"><a class="page-link" href="~/Products/EachProductDetails?id=@cid&pageno=@k">@k</a></li>
+
+                            }
+                        </ul>
+                    </nav>
+                </div>
+            }
+        </div>
+        <!-- /.row -->
+    </div>
+</section>
+<!-- About section-->
+<section class="page-section bg-primary text-white mb-0" id="about">
+    <div class="container">
+        <!-- About Section Heading -->
+        <h2 class="page-section-heading text-center text-uppercase text-white">About</h2>
+        <!-- Icon Divider -->
+        <div class="divider-custom divider-light">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon">
+                <img style="height:60px;border-radius:50%;" src="~/images/nurse.png" />
+            </div>
+            <div class="divider-custom-line"></div>
+        </div>
+        <!-- About Section Content -->
+        <div class="row">
+            <div class="col-lg-4 ml-auto">
+                <p class="lead">Need a babysitter or babysitter job? Nanny4urtiny is the one-stop resource for all your babysitting, nanny, and child care needs. We are an online community dedicated to connecting families to a wide network of babysitters, nannies, daycares and childcare individuals. </p>
+            </div>
+            <div class="col-lg-4 mr-auto">
+                <p class="lead">If you're looking to hire a child care for your kids or you're a babysitter, nanny or child care worker looking for a job — Nanny4urtiny can help!</p>
+            </div>
+        </div>
+        <!-- About Section Button -->
+        <div class="text-center mt-4">
+            <a class="btn btn-xl btn-outline-light" href="https://play.google.com/store/apps?hl=en">
+                <i class="fa fa-download mr-2"></i>
+                Download App!
+            </a>
+        </div>
+    </div>
+</section>
+

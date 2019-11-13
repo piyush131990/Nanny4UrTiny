@@ -1,0 +1,266 @@
+﻿@model MVCManukauTech.Models.DB.Products
+
+@{
+    ViewData["Title"] = "Regsiter Nanny-";
+}
+<script src="~/js/sweetalert.min.js"></script>
+<script type="text/javascript">
+    function validateForm() {
+        var a = document.forms["create"]["Name"].value;
+        var b = document.forms["create"]["ImageFileName"].value;
+        var c = document.forms["create"]["UnitCost"].value;
+        var d = document.forms["create"]["Description"].value;
+        var e = document.forms["create"]["pccImage"].value;
+        var f = document.forms["create"]["IdImage"].value;
+        var g = document.forms["create"]["FirstAidImage"].value;
+        var h = document.forms["create"]["password"].value;
+        var i = document.forms["create"]["ProductId"].value;
+        var j = document.forms["create"]["prize"].value;
+        if (j == "") {
+            swal({
+                title: 'Alert!',
+                text: 'Pay Rate field cannot be left empty!!',
+                type: 'success'
+            });
+            return false;
+        }
+        if (i == "") {
+            swal({
+                title: 'Alert!',
+                text: 'EmailId field cannot be left empty!!',
+                type: 'success'
+            });
+            return false;
+        }
+        else if (h == "") {
+            swal({
+                title: 'Alert!',
+                text: 'Password field cannot be left empty!!',
+                type: 'success'
+            });
+            return false;
+        }
+        else if (g == "") {
+            swal({
+                title: 'Alert!',
+                text: 'FirstAidImage field cannot be left empty!!',
+                type: 'success'
+            });
+            return false;
+        }
+        else if (f == "") {
+            swal({
+                title: 'Alert!',
+                text: 'IdImage field cannot be left empty!!',
+                type: 'success'
+            });
+            return false;
+        }
+        else if (e == "") {
+            swal({
+                title: 'Alert!',
+                text: 'pccImage field cannot be left empty!!',
+                type: 'success'
+            });
+            return false;
+        }
+        else if (d == "") {
+            swal({
+                title: 'Alert!',
+                text: 'Description field cannot be left empty!!',
+                type: 'success'
+            });
+            return false;
+        }
+        else if (c == "") {
+            swal({
+                title: 'Alert!',
+                text: 'UnitCost field cannot be left empty!!',
+                type: 'success'
+            });
+            return false;
+        }
+        else if (b == "") {
+            swal({
+                title: 'Alert!',
+                text: 'ImageFileName field cannot be left empty!!',
+                type: 'success'
+            });
+            return false;
+        }
+        else if (a == "") {
+            swal({
+                title: 'Alert!',
+                text: 'Name field cannot be left empty!!',
+                type: 'success'
+            });
+            return false;
+        }
+    }
+
+    var loadFile = function (event) {
+        var output = document.getElementById('yid');
+        output.src = URL.createObjectURL(event.target.files[0]);
+    };
+    var loadFile1 = function (event) {
+        var output1 = document.getElementById('pccid');
+        output1.src = URL.createObjectURL(event.target.files[0]);
+    }
+    var loadFile2 = function (event) {
+        var output2 = document.getElementById('idid');
+        output2.src = URL.createObjectURL(event.target.files[0]);
+    }
+    var loadFile3 = function (event) {
+        var output3 = document.getElementById('fid');
+        output3.src = URL.createObjectURL(event.target.files[0]);
+    }
+   
+</script>
+<section class="page-section portfolio" id="portfolio">
+    <div class="container">
+        <!-- Portfolio Section Heading -->
+        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Helper Registration</h2>
+        <!-- Icon Divider -->
+        <div class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon">
+                <img style="height:60px;border-radius:50%;" src="~/images/nzlogo.png" />
+            </div>
+            <div class="divider-custom-line"></div>
+        </div>
+
+        <hr />
+        <div class="row">
+            
+                <div class="col-lg-4 mb-5 mb-lg-0"></div>
+                <div class="col-lg-4 mb-5 mb-lg-0">
+                    <form asp-action="Create" name="create" onsubmit="return validateForm()" method="post" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="ProductId" class="control-label" style="font-weight: bold">EMAIL ADDRESS</label>
+                            <input asp-for="ProductId" name="ProductId" class="form-control" />
+                            <span asp-validation-for="ProductId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Name" class="control-label" style="font-weight: bold">NAME</label>
+                            <input asp-for="Name" name="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="UnitCost" class="control-label" style="font-weight: bold">AGE</label>
+                            <input asp-for="UnitCost" name="UnitCost" class="form-control" />
+                            <span asp-validation-for="UnitCost" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="CategoryId" class="control-label" style="font-weight: bold">SELECT PROVINCE</label>
+                            <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryName"></select>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Description" class="control-label" style="font-weight: bold">ABOUT YOURSELF</label>
+                            <input asp-for="Description" name="Description" class="form-control" />
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Prize" class="control-label" style="font-weight: bold">PAY-RATE/HOUR</label>
+                            <input asp-for="Prize" name="prize" class="form-control" />
+                            <span asp-validation-for="Prize" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Password" style="font-weight: bold">PASSWORD</label>
+                            <input asp-for="Password" name="password" class="form-control" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        <div style="border-style:inset;text-align:left" class="form-group">
+                            <img id="yid" style="height:400px" class="img-fluid" />
+                            <label asp-for="ImageFileName" class="control-label" style="font-weight: bold">YOUR IMAGE</label><br />
+                            <input asp-for="ImageFileName" name="ImageFileName" type="file" onchange="loadFile(event)" />
+                            <span asp-validation-for="ImageFileName" class="text-danger"></span>
+                        </div>
+
+                        <div style="border-style:inset;text-align:left" class="form-group">
+                            <img id="pccid" style="height:400px" class="img-fluid" />
+                            <label asp-for="pccImage" class="control-label" style="font-weight: bold">UPLOAD PCC</label><br />
+                            <input asp-for="pccImage" type="file" name="pccImage" onchange="loadFile1(event)" />
+                            <span asp-validation-for="pccImage" class="text-danger"></span>
+                        </div>
+                        <div style="border-style:inset;text-align:left" class="form-group">
+                            <img id="idid" style="height:400px" class="img-fluid" />
+                            <label asp-for="IdImage" class="control-label" style="font-weight: bold">UPLOAD ID(Passport/Driving Licence)</label><br />
+                            <input asp-for="IdImage" type="file" name="IdImage" onchange="loadFile2(event)" />
+                            <span asp-validation-for="IdImage" class="text-danger"></span>
+                        </div>
+                        <div style="border-style:inset;text-align:left" class="form-group">
+                            <img id="fid" style="height:400px" class="img-fluid" />
+                            <label asp-for="FirstAidImage" class="control-label" style="font-weight: bold">UPLOAD FIRST-AID CERTIFICATE</label><br />
+                            <input asp-for="FirstAidImage" type="file" name="FirstAidImage" onchange="loadFile3(event)" />
+                            <span asp-validation-for="FirstAidImage" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" id="check" name="check" />
+                            <label>
+                                <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" target="_blank" href="@Url.Action("Contact","Home")">Privacy Policy</a>
+                            </label>
+
+                        </div>
+                        @*<div class="form-group">
+            <div class="checkbox">
+                <label>
+                    <input asp-for="IsDownload" /> @Html.DisplayNameFor(model => model.IsDownload)
+                </label>
+            </div>
+        </div>*@
+                        @*<div class="form-group">
+            <label asp-for="DownloadFileName" class="control-label"></label>
+            <input asp-for="DownloadFileName" class="form-control" />
+            <span asp-validation-for="DownloadFileName" class="text-danger"></span>
+        </div>*@
+                        <div class="form-group">
+                            <input type="submit" value="Register" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+                <div class="col-lg-4 mb-5 mb-lg-0"></div>
+            
+            </div>
+        </div>
+</section>
+
+<section class="page-section bg-primary text-white mb-0" id="about">
+    <div class="container">
+        <!-- About Section Heading -->
+        <h2 class="page-section-heading text-center text-uppercase text-white">About</h2>
+        <!-- Icon Divider -->
+        <div class="divider-custom divider-light">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon">
+                <img style="height:60px;border-radius:50%;" src="~/images/nurse.png" />
+            </div>
+            <div class="divider-custom-line"></div>
+        </div>
+        <!-- About Section Content -->
+        <div class="row">
+            <div class="col-lg-4 ml-auto">
+                <p class="lead">Need a babysitter or babysitter job? Nanny4urtiny is the one-stop resource for all your babysitting, nanny, and child care needs. We are an online community dedicated to connecting families to a wide network of babysitters, nannies, daycares and childcare individuals. </p>
+            </div>
+            <div class="col-lg-4 mr-auto">
+                <p class="lead">If you're looking to hire a child care for your kids or you're a babysitter, nanny or child care worker looking for a job — Nanny4urtiny can help!</p>
+            </div>
+        </div>
+        <!-- About Section Button -->
+        <div class="text-center mt-4">
+            <a class="btn btn-xl btn-outline-light" href="https://play.google.com/store/apps?hl=en">
+                <i class="fa fa-download mr-2"></i>
+                Download App!
+            </a>
+        </div>
+    </div>
+</section>
+@*<div>
+        <a asp-action="Index">Back to List</a>
+    </div>*@
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,31 @@
+﻿@model MVCManukauTech.Models.DB.Products;
+<div class="col-md-6 col-md-offset-2">
+    <section>
+        <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+            <h4>Nurse LogIn</h4>
+            <hr />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label>Email Id</label>
+                <input asp-for="ProductId" class="form-control" />
+                <span asp-validation-for="ProductId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button type="submit" onclick="Nurselogin" class="btn btn-default">Log in</button>
+            </div>
+            <div class="form-group">
+                <p>
+                    <a asp-action="ForgotPassword">Forgot your password?</a>
+                </p>
+                <p>
+                    <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]">Register as a new user?</a>
+                </p>
+            </div>
+        </form>
+    </section>
+</div>
